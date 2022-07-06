@@ -1,0 +1,62 @@
+openapi: 3.0.2
+info:
+  title: My API
+  description: This API is a POC for using SPOT in our projects in Coformatique
+  version: 1.0.0
+paths:
+  /users:
+    post:
+      description: Endpoint for creating new users
+      operationId: CreateUser
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserRequest'
+        required: true
+      responses:
+        '201':
+          description: User created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateUserResponse'
+components:
+  schemas:
+    CreateUserRequest:
+      type: object
+      properties:
+        firstName:
+          type: string
+          description: First name of the user
+        lastName:
+          type: string
+          description: Last name of the user
+      required:
+        - firstName
+        - lastName
+    CreateUserResponse:
+      type: object
+      properties:
+        firstName:
+          type: string
+          description: First name of the user
+        lastName:
+          type: string
+          description: Last name of the user
+        role:
+          type: string
+          description: User role that defines its permissions
+      required:
+        - firstName
+        - lastName
+        - role
+servers:
+  - url: http://{baseUrl}:{port}/
+    description: The production API server
+    variables:
+      baseUrl:
+        default: localhost
+      port:
+        default: '3000'
